@@ -1,0 +1,21 @@
+---
+- name: Install Nginx
+  hosts: webserver
+  become: yes
+
+  tasks:
+    - name: Install EPEL repository
+      yum:
+        name: epel-release
+        state: present
+
+    - name: Install Nginx package
+      yum:
+        name: nginx
+        state: present
+
+    - name: Start Nginx service
+      service:
+        name: nginx
+        state: started
+# ansible-playbook -i inventory.ini install-nginx.yml
