@@ -1,0 +1,21 @@
+---
+- name: Install Apache on Red Hat
+  hosts: your-server-hostname
+  become: true
+  become_method: sudo
+  gather_facts: no
+
+  tasks:
+    - name: Install Apache web server
+      yum:
+        name: httpd
+        state: present
+      notify:
+        - Start Apache service
+
+  handlers:
+    - name: Start Apache service
+      service:
+        name: httpd
+        state: started
+# ansible-playbook apache-install.yml --ask-become-pass
